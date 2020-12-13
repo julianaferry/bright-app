@@ -44,6 +44,7 @@ export default function DocumentList() {
     const [getdata, setGetData] = useState([]);
     const [searchFile, setSearchFile] = useState('');
     const [show, setShow] = useState(false);
+    const [modalData, setModalData] = useState([]);
 
     //fetch data json
     useEffect(() => {
@@ -51,23 +52,27 @@ export default function DocumentList() {
           .then(res => res.json())
           .then(data => {
             setGetData(data)
+            setModalData(data)
           })
       }, []);
 
+      const filterModal = () => {
+        data.filter(type =>type.name === "folder").map(files => (
+                setModalData(data)
+            ))
+      }  
 
-      //filter data.name
-      let fileNames =  useMemo(() => {
-          if (!searchFile) return data;
+      //filter data.name => needs to be finished
+      const fileNames =  useMemo(() => {
+        if (!searchFile) return data;
 
              data.filter(value =>  {
                  console.log(value.name)
-                 return value.name.toLowerCase().includes(searchFile.toLowerCase());
-             
+                 return value.name.toLowerCase().includes(searchFile.toLowerCase()); 
         })
-
     }, [searchFile]);
 
- 
+    //modal open/ close
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
@@ -100,12 +105,12 @@ export default function DocumentList() {
                             {fileNames  && 
                                 fileNames.map(item => (
                                 <StyledListLi
-                                 key={item.name}
-                                  className="mt-4" 
-                                  onClick={handleShow}
+                                key={item.name}
+                                className="mt-4" 
+                                value={item.name}
+                                onClick={handleShow}
                                   >
-                                
-                                {item.type}
+                                    {item.type}
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="190" height="50" className="pt-2">
                                             <path d="M469.338,152.564v-40.223C469.338,85.647,447.69,64,420.996,64H261.04l-85.333-42.667H91.012
                                                 c-26.694,0-48.341,21.647-48.341,48.341v82.887C17.881,160.851,0,184.245,0,211.819v216.363c0,34.502,27.983,62.485,62.485,62.485
@@ -119,17 +124,21 @@ export default function DocumentList() {
                                 </StyledListLi>
                             ))}
                         </StyledList>
-                        
-                            <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Document {data.name}</Modal.Title>
-                            </Modal.Header>
-        
-                            <Modal.Body>
-                            <p>{data.files}</p>
-                            </Modal.Body>
-        
-                    </Modal>
+                      
+                   
+                                <Modal show={show} centered={true} onHide={handleClose} value={filterModal} >
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Document {modalData.name}</Modal.Title>
+                                </Modal.Header>
+            
+                                <Modal.Body>
+                                <p>{modalData.name}</p>
+                                </Modal.Body>
+            
+                        </Modal>
+               
+                    
+
                     </div>
                 </div>
              </section> 

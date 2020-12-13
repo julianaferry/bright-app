@@ -1,15 +1,24 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from '../App';
 import DocumentList from './components/DocumentList';
-import Document from './components/Document';
+import data from '../data/data.json';
 
-test('get document list', async () => {
+
+
+//I need to improve my testing skills
+test('get document list', () => {
   render(<DocumentList />)
 
 });
 
+test('modal shows the data and a close button', () => {
+  render(<DocumentList />)
 
-test('get each document', async () => {
-    render(<Document />)
-  
-  });
+});
+
+test('seacrh file names', () => {
+  const { input } = setup()
+  fireEvent.change(input, { target: { value: 'data.name' } })
+  expect(input.value).toBe('data.name')
+})
+
