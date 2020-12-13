@@ -1,16 +1,28 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import styled from 'styled-components';
 // import Document from './components/Document';
 import SearchBar from './SearchBar';
+import data from '../data/data';
+
+
+const StyledPage = styled.div `
+    width: 100%;
+    background-color:#CCEBFF ;
+`;
+
 
 export default function DocumentList(props) {
 
+    const [data, setData] = useState({  });
 
-  const StyledPage = styled.div `
-    width: 100%;
-    background-color:#CCEBFF ;
-   
-  `;
+
+    useEffect(() => {
+        let url = "../data/data.js";
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setData(data))
+        }, []);
+
 
     return (
         <>
@@ -29,10 +41,13 @@ export default function DocumentList(props) {
                     </div>
                   
                     <div className="row">
-                        <a href="{}" >
-                            <img src="" alt="folder"/>
-                        
-                        </a>
+                    <ul>
+                    {data.map(item => (
+                      <li key={item.objectID}>
+                        <a href={item.url}>{item.title}</a>
+                      </li>
+                    ))}
+                  </ul>
                     </div>
                 </div>
              </section>

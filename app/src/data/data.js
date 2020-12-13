@@ -1,4 +1,4 @@
-const data =[
+const data = [
     {
         type: 'pdf',
         name: 'Employee Handbook',
