@@ -1,27 +1,29 @@
-import React,{useState, useEffect} from 'react';
-import styled from 'styled-components';
-// import Document from './components/Document';
-
+import React,{useState, useEffect, useMemo} from 'react';
+import Document from './components/Document';
 import data from '../data/data.json';
+import styled from 'styled-components';
+
 
 // Styles
 const StyledSearch = styled.input `
-width: 20rem;
-background: #F2F1F9;
-border:none;
-padding: 0.5rem;
-margin: 2rem 0;
+    width: 20rem;
+    background: #F2F1F9;
+    border:none;
+    padding: 0.5rem;
+    margin: 2rem 0;
 `;
 
 const StyledPage = styled.div `
     width: 100%;
-    background-color:#CCEBFF ;
+    background-color:#CCEBFF;
 `;
 
 const StyledList = styled.ul `
     list-style: none;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 `;
 
 const StyledListLi = styled.li `
@@ -41,8 +43,8 @@ export default function DocumentList() {
 
     //set states
     const [getdata, setGetData] = useState([]);
-    const [findFile, setFindFile] = useState();
-
+    const [searchFile, setSearchFile] = useState('');
+    const [filterFileName, setFilterFileName] = useState([]);
 
 
     //fetch data json
@@ -50,17 +52,22 @@ export default function DocumentList() {
         fetch( dataUrl)
           .then(res => res.json())
           .then(data => {
-            setGetData(getdata)
+            setGetData(data)
           })
       }, []);
 
 
-      function onChange  ()  {
+      //filter data.name
+      const fileNames = useMemo(() => {
+          if (!searchFile) return data;
 
-      }
+             data.filter(name => {
+            return name.toString().toLowerCase().includes(searchFile.toLowerCase())
+        })
 
+    }, [searchFile, filterFileName]);
 
-
+ 
 
 
     return (
@@ -72,13 +79,13 @@ export default function DocumentList() {
                         <h2 className="ml-2 pt-4">Documents</h2>
                     </div>
                     <div className="row">
-                        <StyledSearch
-                        key="search"
-                        value={findFile}
-                        placeholder={"search file name"}
-                        onChange={onChange}
-
-                        
+                        <StyledSearch 
+                        className="ml-2 form-control"
+                        type="text"
+                        value={searchFile}
+                        placeholder={"search filename"}
+                        aria-label="Search"
+                        onChange={ e => setSearchFile(e.target.value)}
                         />
                     </div>
                     <hr className="mb-6" />
@@ -87,10 +94,11 @@ export default function DocumentList() {
                     </div>
                   
                     <div className="row">
-                        <StyledList>
-                            {data && 
-                                data.map(item => (
-                                <StyledListLi key={item.name} className="mt-4">
+                        <StyledList data={getdata}>
+                            {fileNames && 
+                                fileNames.map(item => (
+                                <StyledListLi key={item.name} className="mt-4" >
+                                
                                 {item.type}
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="190" height="50" className="pt-2">
                                             <path d="M469.338,152.564v-40.223C469.338,85.647,447.69,64,420.996,64H261.04l-85.333-42.667H91.012
@@ -105,6 +113,7 @@ export default function DocumentList() {
                                 </StyledListLi>
                             ))}
                         </StyledList>
+                        <Document/>
                     </div>
                 </div>
              </section> 

@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './components/Header';
 import DocumentList from './components/DocumentList';
+import Document from './components/Document';
 import styled from 'styled-components';
 
 const StyledApp = styled.div `
