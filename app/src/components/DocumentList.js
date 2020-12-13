@@ -56,11 +56,6 @@ export default function DocumentList() {
           })
       }, []);
 
-      const filterModal = () => {
-        data.filter(type =>type.name === "folder").map(files => (
-                setModalData(data)
-            ))
-      }  
 
       //filter data.name => needs to be finished
       const fileNames =  useMemo(() => {
@@ -125,20 +120,19 @@ export default function DocumentList() {
                             ))}
                         </StyledList>
                       
-                   
-                                <Modal show={show} centered={true} onHide={handleClose} value={filterModal} >
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Document {modalData.name}</Modal.Title>
-                                </Modal.Header>
-            
-                                <Modal.Body>
-                                <p>{modalData.name}</p>
-                                </Modal.Body>
-            
+                        {data.filter(type =>type.files !== '').forEach(modalData => (
+                            <Modal show={show} centered={true} onHide={handleClose} filterModal={modalData} >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Document </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                            <p>{modalData.name}</p>
+                            <p>{modalData.type}</p>
+                            <p>{modalData.added}</p>
+                            </Modal.Body>
                         </Modal>
-               
-                    
-
+                        ))
+                        }
                     </div>
                 </div>
              </section> 
