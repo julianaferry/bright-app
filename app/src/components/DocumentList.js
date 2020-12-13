@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // import Document from './components/Document';
 import SearchBar from './SearchBar';
 
-export default function DocumentList() {
+export default function DocumentList(props) {
 
 
   const StyledPage = styled.div `
@@ -23,14 +23,20 @@ export default function DocumentList() {
                     <div className="row">
                         <SearchBar/>
                     </div>
+                    <hr className="mb-6" />
                     <div className="row">
                         <h3 className="ml-2 pt-4">All Folders</h3>
                     </div>
-                    <div className="row">
                   
+                    <div className="row">
+                        <a href="{}" >
+                            <img src="" alt="folder"/>
+                        
+                        </a>
                     </div>
                 </div>
              </section>
+            
         </StyledPage>
         </>
     )
