@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-const SearchBar = ({keyword,setKeyword}) => {
+const SearchBar = () => {
 
   const StyledSearch = styled.input `
     width: 20rem;
@@ -12,12 +12,12 @@ const SearchBar = ({keyword,setKeyword}) => {
     margin: 2rem 0;
   `;
 
+
   return (
     <StyledSearch 
-     key="search"
-     value={keyword}
-     placeholder={"search folder"}
-     onChange={(e) => setKeyword(e.target.value)}
+        key="search"
+        placeholder={"search file name"}
+      
     />
   );
 }
