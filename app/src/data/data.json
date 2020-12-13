@@ -11,9 +11,9 @@
         "type": "folder",
         "name": "Expenses",
         "files": [{
-            "type": "doc",
-            "name": "Expenses claim form",
-            "added": "2017-05-02"
+                "type": "doc",
+                "name": "Expenses claim form",
+                "added": "2017-05-02"
             },{
                 "type": "doc",
                 "name": "Fuel allowances",

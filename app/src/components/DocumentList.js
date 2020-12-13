@@ -43,7 +43,6 @@ export default function DocumentList() {
     //set states
     const [getdata, setGetData] = useState([]);
     const [searchFile, setSearchFile] = useState('');
-    const [filterFileName, setFilterFileName] = useState([]);
     const [show, setShow] = useState(false);
 
     //fetch data json
@@ -57,14 +56,16 @@ export default function DocumentList() {
 
 
       //filter data.name
-      const fileNames = useMemo(() => {
+      let fileNames =  useMemo(() => {
           if (!searchFile) return data;
 
-             data.filter(name => {
-            return name.toString().toLowerCase().includes(searchFile.toLowerCase())
+             data.filter(value =>  {
+                 console.log(value.name)
+                 return value.name.toLowerCase().includes(searchFile.toLowerCase());
+             
         })
 
-    }, [searchFile, filterFileName]);
+    }, [searchFile]);
 
  
     const handleClose = () => setShow(false);
@@ -96,7 +97,7 @@ export default function DocumentList() {
                   
                     <div className="row">
                         <StyledList data={getdata}>
-                            {fileNames && 
+                            {fileNames  && 
                                 fileNames.map(item => (
                                 <StyledListLi
                                  key={item.name}
