@@ -1,8 +1,7 @@
 import React,{useState, useEffect, useMemo} from 'react';
-import Document from './components/Document';
 import data from '../data/data.json';
 import styled from 'styled-components';
-
+import {Modal} from 'react-bootstrap';
 
 // Styles
 const StyledSearch = styled.input `
@@ -45,7 +44,7 @@ export default function DocumentList() {
     const [getdata, setGetData] = useState([]);
     const [searchFile, setSearchFile] = useState('');
     const [filterFileName, setFilterFileName] = useState([]);
-
+    const [show, setShow] = useState(false);
 
     //fetch data json
     useEffect(() => {
@@ -68,7 +67,9 @@ export default function DocumentList() {
     }, [searchFile, filterFileName]);
 
  
-
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
 
     return (
         <>
@@ -97,7 +98,11 @@ export default function DocumentList() {
                         <StyledList data={getdata}>
                             {fileNames && 
                                 fileNames.map(item => (
-                                <StyledListLi key={item.name} className="mt-4" >
+                                <StyledListLi
+                                 key={item.name}
+                                  className="mt-4" 
+                                  onClick={handleShow}
+                                  >
                                 
                                 {item.type}
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="190" height="50" className="pt-2">
@@ -113,7 +118,17 @@ export default function DocumentList() {
                                 </StyledListLi>
                             ))}
                         </StyledList>
-                        <Document/>
+                        
+                            <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Document {data.name}</Modal.Title>
+                            </Modal.Header>
+        
+                            <Modal.Body>
+                            <p>{data.files}</p>
+                            </Modal.Body>
+        
+                    </Modal>
                     </div>
                 </div>
              </section> 
