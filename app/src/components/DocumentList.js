@@ -82,14 +82,13 @@ export default function DocumentList() {
         console.log(filtered)
         
           filtered.forEach(elem =>(
-                elem.files.map(t => (
-                    setModalData(t)
+                elem.files.map(file => (
+                    setModalData(file)
                 ))
          ))
     }
        
     
-
     return (
         <>
         <StyledPage>
