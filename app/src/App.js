@@ -9,7 +9,7 @@ const StyledApp = styled.div `
 
 `;
 
-function App({...children}) {
+function App() {
   return (
     <div className="App">
       <StyledApp>
@@ -21,7 +21,7 @@ function App({...children}) {
           </body>
           <footer className="container">
               <div className="mt-5">
-              <p className="p-4">by Juliana Ferreira</p>
+              <p className="p-4">by Juliana Ferreira :)</p>
               </div>
           </footer>
         </StyledApp>

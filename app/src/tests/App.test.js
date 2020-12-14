@@ -7,12 +7,12 @@ import data from '../data/data.json';
 
 //I need to improve my testing skills!
 test('get document list', () => {
-  render(<DocumentList />)
+  render(<StyledList data={getdata}>)
 
 });
 
 test('modal shows the data and a close button', () => {
-  render(<DocumentList />)
+  render(<DocumentList data={modalData}> />)
 
 });
 

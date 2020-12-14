@@ -23,6 +23,7 @@ const StyledList = styled.ul `
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: baseline;
 `;
 
 const StyledListLi = styled.li `
@@ -105,7 +106,7 @@ export default function DocumentList() {
                                 value={item.name}
                                 onClick={handleShow}
                                   >
-                                    {item.type}
+                                    <h5>{item.type}</h5>
                                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="190" height="50" className="pt-2">
                                             <path d="M469.338,152.564v-40.223C469.338,85.647,447.69,64,420.996,64H261.04l-85.333-42.667H91.012
                                                 c-26.694,0-48.341,21.647-48.341,48.341v82.887C17.881,160.851,0,184.245,0,211.819v216.363c0,34.502,27.983,62.485,62.485,62.485
@@ -115,13 +116,14 @@ export default function DocumentList() {
                                                 c0-10.938,8.881-19.819,19.819-19.819h387.029c10.938,0,19.819,8.881,19.819,19.819V428.181z"/>
                                     </svg>
                                
-                                    {item.name}                   
+                                    <p>{item.name}</p>
+                                    <p>{item.added}</p>           
                                 </StyledListLi>
                             ))}
                         </StyledList>
                       
-                        {data.filter(type =>type.files !== '').forEach(modalData => (
-                            <Modal show={show} centered={true} onHide={handleClose} filterModal={modalData} >
+                        {data.filter(item =>item.type === 'folder').forEach(modalData=> (
+                            <Modal key={modalData.id} show={show} centered={true} onHide={handleClose} filterModal={modalData} >
                             <Modal.Header closeButton>
                                 <Modal.Title>Document </Modal.Title>
                             </Modal.Header>
