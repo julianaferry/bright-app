@@ -53,7 +53,7 @@ export default function DocumentList() {
           .then(res => res.json())
           .then(data => {
             setGetData(data)
-            setModalData(data)
+      
           })
       }, []);
 
@@ -68,10 +68,27 @@ export default function DocumentList() {
         })
     }, [searchFile]);
 
+
     //modal open/ close
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
+
+
+    //mmodal open: welcome to the company text:)
+    let handleModal = () => {
+        
+        const filtered = data.filter(item => item.type === 'folder' );
+        console.log(filtered)
+        
+          filtered.forEach(elem =>(
+                elem.files.map(t => (
+                    setModalData(t)
+                ))
+         ))
+    }
+       
+    
 
     return (
         <>
@@ -121,9 +138,8 @@ export default function DocumentList() {
                                 </StyledListLi>
                             ))}
                         </StyledList>
-                      
-                        {data.filter(item =>item.type === 'folder').forEach(modalData=> (
-                            <Modal key={modalData.id} show={show} centered={true} onHide={handleClose} filterModal={modalData} >
+     
+                            <Modal key={modalData.id} show={show} centered={true} onHide={handleClose} data={modalData} onClick={handleModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Document </Modal.Title>
                             </Modal.Header>
@@ -133,8 +149,7 @@ export default function DocumentList() {
                             <p>{modalData.added}</p>
                             </Modal.Body>
                         </Modal>
-                        ))
-                        }
+                        
                     </div>
                 </div>
              </section> 

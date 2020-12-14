@@ -11,12 +11,12 @@ test('get document list', () => {
 
 });
 
-test('modal shows the data and a close button', () => {
+test('modal shows the data', () => {
   render(<DocumentList data={modalData}> />)
 
 });
 
-test('seacrh file names', () => {
+test('search file names', () => {
   const { input } = setup()
   fireEvent.change(input, { target: { value: 'data.name' } })
   expect(input.value).toBe('data.name')
